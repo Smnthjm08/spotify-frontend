@@ -16,13 +16,12 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
-export default function RegisterForm({
+export default function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmpassword, setConfirmPassword] = useState<string>("");
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -43,8 +42,8 @@ export default function RegisterForm({
     },
     onError: () => {
       toast.toast({
-        title: "Something went wrong!",
-        description: "There was a problem while creating your account.",
+        title: "Invalid credentials!",
+        description: "Please check your email and password.",
       });
     },
   });
@@ -55,9 +54,9 @@ export default function RegisterForm({
         <div className={cn("flex flex-col gap-6", className)} {...props}>
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Sign Up</CardTitle>
+              <CardTitle className="text-2xl">Login</CardTitle>
               <CardDescription>
-                Enter your email below to register your account
+                Enter your email below to login to your account
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -76,6 +75,12 @@ export default function RegisterForm({
                   <div className="grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="password">Password</Label>
+                      <Link
+                        to="/forgot-password"
+                        className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                      >
+                        Forgot your password?
+                      </Link>
                     </div>
                     <Input
                       id="password"
@@ -84,36 +89,20 @@ export default function RegisterForm({
                       required
                     />
                   </div>
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password"> Confirm Password</Label>
-                    </div>
-                    <Input
-                      id="password"
-                      type="password"
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                    />
-                  </div>
                   <Button
-                    disabled={
-                      isPending ||
-                      password.length < 6 ||
-                      password !== confirmpassword
-                    }
+                    disabled={isPending || password.length < 6}
                     type="submit"
                     className="w-full"
-                    // onClick={() => signIn({ email, password })}
                   >
                     {isPending ? "Logging in..." : "Login"}
                   </Button>
                   <Button variant="outline" className="w-full">
-                    Continue with Google
+                    Login with Google
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Already have an account?{" "}
-                  <Link href="/login" className="underline underline-offset-4">
+                  Don&apos;t have an account?{" "}
+                  <Link to="/register" className="underline underline-offset-4">
                     Sign up
                   </Link>
                 </div>
