@@ -15,20 +15,37 @@ type registerTypes = {
   confirmPassword: string;
 };
 
-//login post request
+type resetPasswordTypes = {
+  password: string;
+  confirmPassword: string;
+};
+
+//login POST request
 export const loginRequest = async (data: loginTypes) => {
   const response = await API.post("/auth/login", data);
   return response.data;
 };
 
-//register post request
+//register POST request
 export const registerRequest = async (data: registerTypes) => {
   const response = await API.post("/auth/register", data);
   return response.data;
 };
 
-// verify email get request
-export const verifyEmailRequest = async(code: string | undefined) => {
+// verify email GET request
+export const verifyEmailRequest = async (code: string | undefined) => {
   const response = await API.get(`/auth/verify-email/${code}`);
   return response.data;
-}
+};
+
+// forgot password POST request
+export const sendPasswordResetEmailRequest = async (email: string) => {
+  const response = await API.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+// reset password POST request
+export const resetPasswordRequest = async (data: resetPasswordTypes) => {
+  const response = await API.post("/auth/reset-password", data);
+  return response.data;
+};
