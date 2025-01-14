@@ -5,10 +5,14 @@ import RegisterPage from "./app/(auth)/register-page";
 import ForgotPasswordPage from "./app/(auth)/forgot-password";
 import VerifyEmailPage from "./app/(auth)/verify-email";
 import ResetPasswordPage from "./app/(auth)/reset-password";
+import AppContainer from "./components/app-continer";
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<AppContainer />}>
+        <Route index element={<Home />} />
+      </Route>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

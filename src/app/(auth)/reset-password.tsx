@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { resetPasswordRequest } from "../../lib/api";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Terminal } from "lucide-react";
 
 export default function ResetPasswordPage({
   className,
@@ -25,6 +27,13 @@ export default function ResetPasswordPage({
 
   const navigate = useNavigate();
   const toast = useToast();
+  const [searchParams] = useSearchParams();
+
+  const verificationCode = searchParams.get("code");
+  const exp = searchParams.get("exp");
+
+  const linkisValid = exp && Number(exp) > Date.now();
+  console.log(linkisValid);
 
   const { mutate, isPending } = useMutation({
     mutationFn: resetPasswordRequest,
@@ -34,7 +43,7 @@ export default function ResetPasswordPage({
         description:
           response?.message?.toString() || "User Registered Successfully.",
       });
-      navigate("/", { replace: true });
+      navigate("/login", { replace: true });
     },
     onError: () => {
       toast.toast({
@@ -46,70 +55,95 @@ export default function ResetPasswordPage({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    mutate({ password, confirmPassword });
+    if (verificationCode) {
+      mutate({ password, verificationCode });
+    } else {
+      toast.toast({
+        title: "Error",
+        description: "Verification code is missing.",
+      });
+    }
   };
 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
-          <Card>
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Sign Up</CardTitle>
-              <CardDescription>
-                Enter your email below to register your account
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-6">
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password">Password</Label>
+      {!linkisValid ? (
+        <Alert className="max-w-2xl">
+          <Terminal className="h-4 w-4" />
+          <AlertTitle>Reset Password Link Expired!</AlertTitle>
+          <AlertDescription>
+            Forgot your password?{" "}
+            <Link to="/forgot-password">
+              <span className="hover:text-gray-500 underline ">Click here</span>
+            </Link>{" "}
+            to reset it. New to the site?{" "}
+            <Link to="/register">
+              <span className="underline hover:text-gray-500">Register</span>
+            </Link>{" "}
+            Now and get started!
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <div className="w-full max-w-sm">
+          <div className={cn("flex flex-col gap-6", className)} {...props}>
+            <Card>
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Sign Up</CardTitle>
+                <CardDescription>
+                  Enter your email below to register your account
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit}>
+                  <div className="flex flex-col gap-6">
+                    <div className="grid gap-2">
+                      <div className="flex items-center">
+                        <Label htmlFor="password">Password</Label>
+                      </div>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="**********"
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
                     </div>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="**********"
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password"> Confirm Password</Label>
+                    <div className="grid gap-2">
+                      <div className="flex items-center">
+                        <Label htmlFor="password"> Confirm Password</Label>
+                      </div>
+                      <Input
+                        id="confirm-password"
+                        type="password"
+                        placeholder="**********"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                      />
                     </div>
-                    <Input
-                      id="confirm-password"
-                      type="password"
-                      placeholder="**********"
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                    />
+                    <Button
+                      disabled={
+                        isPending ||
+                        password.length < 6 ||
+                        password !== confirmPassword
+                      }
+                      type="submit"
+                      className="w-full"
+                    >
+                      {isPending ? "Logging in..." : "Login"}
+                    </Button>
                   </div>
-                  <Button
-                    disabled={
-                      isPending ||
-                      password.length < 6 ||
-                      password !== confirmPassword
-                    }
-                    type="submit"
-                    className="w-full"
-                  >
-                    {isPending ? "Logging in..." : "Login"}
-                  </Button>
-                </div>
-                <div className="mt-4 text-center text-sm">
-                  Already have an account?{" "}
-                  <Link to="/login" className="underline underline-offset-4">
-                    Login
-                  </Link>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
+                  <div className="mt-4 text-center text-sm">
+                    Already have an account?{" "}
+                    <Link to="/login" className="underline underline-offset-4">
+                      Login
+                    </Link>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

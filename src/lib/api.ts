@@ -17,7 +17,7 @@ type registerTypes = {
 
 type resetPasswordTypes = {
   password: string;
-  confirmPassword: string;
+  verificationCode: string;
 };
 
 //login POST request
@@ -47,5 +47,11 @@ export const sendPasswordResetEmailRequest = async (email: string) => {
 // reset password POST request
 export const resetPasswordRequest = async (data: resetPasswordTypes) => {
   const response = await API.post("/auth/reset-password", data);
+  return response.data;
+};
+
+// GET user
+export const getUser = async () => {
+  const response = await API.get("/user");
   return response.data;
 };
