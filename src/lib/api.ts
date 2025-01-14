@@ -26,6 +26,12 @@ export const loginRequest = async (data: loginTypes) => {
   return response.data;
 };
 
+// logout GET request
+export const logoutRequest = async () => {
+  const response = await API.get("/auth/logout");
+  return response.data;
+};
+
 //register POST request
 export const registerRequest = async (data: registerTypes) => {
   const response = await API.post("/auth/register", data);

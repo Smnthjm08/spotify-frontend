@@ -26,7 +26,7 @@ export default function ResetPasswordPage({
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const toast = useToast();
+  const {toast} = useToast();
   const [searchParams] = useSearchParams();
 
   const verificationCode = searchParams.get("code");
@@ -38,7 +38,7 @@ export default function ResetPasswordPage({
   const { mutate, isPending } = useMutation({
     mutationFn: resetPasswordRequest,
     onSuccess: (response) => {
-      toast.toast({
+      toast({
         title: "Success!",
         description:
           response?.message?.toString() || "User Registered Successfully.",
@@ -46,7 +46,7 @@ export default function ResetPasswordPage({
       navigate("/login", { replace: true });
     },
     onError: () => {
-      toast.toast({
+      toast({
         title: "Something went wrong!",
         description: "There was a problem while creating your account.",
       });
@@ -58,7 +58,7 @@ export default function ResetPasswordPage({
     if (verificationCode) {
       mutate({ password, verificationCode });
     } else {
-      toast.toast({
+      toast({
         title: "Error",
         description: "Verification code is missing.",
       });
