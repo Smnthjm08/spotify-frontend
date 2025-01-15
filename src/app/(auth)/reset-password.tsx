@@ -26,14 +26,13 @@ export default function ResetPasswordPage({
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const {toast} = useToast();
+  const { toast } = useToast();
   const [searchParams] = useSearchParams();
 
   const verificationCode = searchParams.get("code");
   const exp = searchParams.get("exp");
 
   const linkisValid = exp && Number(exp) > Date.now();
-  console.log(linkisValid);
 
   const { mutate, isPending } = useMutation({
     mutationFn: resetPasswordRequest,
