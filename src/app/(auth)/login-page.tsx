@@ -24,7 +24,7 @@ export default function LoginForm({
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const toast = useToast();
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,14 +34,14 @@ export default function LoginForm({
   const { mutate: signIn, isPending } = useMutation({
     mutationFn: loginRequest,
     onSuccess: (response) => {
-      toast.toast({
+      toast({
         title: "Success!",
         description: response.message?.toString() || "Logged in Successfully.",
       });
       navigate("/", { replace: true });
     },
     onError: () => {
-      toast.toast({
+      toast({
         title: "Invalid credentials!",
         description: "Please check your email and password.",
       });

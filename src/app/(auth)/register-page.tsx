@@ -26,12 +26,12 @@ export default function RegisterForm({
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const toast = useToast();
+  const {toast} = useToast();
 
   const { mutate: register, isPending } = useMutation({
     mutationFn: registerRequest,
     onSuccess: (response) => {
-      toast.toast({
+      toast({
         title: "Success!",
         description:
           response?.message?.toString() || "User Registered Successfully.",
@@ -39,7 +39,7 @@ export default function RegisterForm({
       navigate("/", { replace: true });
     },
     onError: () => {
-      toast.toast({
+      toast({
         title: "Something went wrong!",
         description: "There was a problem while creating your account.",
       });
