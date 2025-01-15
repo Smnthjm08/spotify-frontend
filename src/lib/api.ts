@@ -32,7 +32,6 @@ export const logoutRequest = async () => {
   return response.data;
 };
 
-
 //register POST request
 export const registerRequest = async (data: registerTypes) => {
   const response = await API.post("/auth/register", data);

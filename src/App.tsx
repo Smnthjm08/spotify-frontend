@@ -15,11 +15,11 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="dashboard" element={<DashBoard />} />
       </Route>
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-      <Route path="verify-email/:code" element={<VerifyEmailPage />} />
-      <Route path="reset-password" element={<ResetPasswordPage />} />
-      <Route path="forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/verify-email/:code" element={<VerifyEmailPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
     </Routes>
   );
 }
