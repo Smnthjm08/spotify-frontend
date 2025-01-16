@@ -23,6 +23,8 @@ type resetPasswordTypes = {
 //login POST request
 export const loginRequest = async (data: loginTypes) => {
   const response = await API.post("/auth/login", data);
+
+  console.log(response, "response");
   return response.data;
 };
 
@@ -57,7 +59,19 @@ export const resetPasswordRequest = async (data: resetPasswordTypes) => {
 };
 
 // GET user
-export const getUser = async () => {
+export const getUserRequest = async () => {
   const response = await API.get("/user");
+  return response.data;
+};
+
+// GET sessions
+export const getSessionsRequest = async () => {
+  const response = await API.get("/sessions");
+  return response.data;
+};
+
+// DELETE session
+export const deleteSessionRequest = async (sessionID: string) => {
+  const response = await API.delete(`/sessions/${sessionID}`);
   return response.data;
 };

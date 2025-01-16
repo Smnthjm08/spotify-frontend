@@ -1,6 +1,6 @@
 import { loginRequest } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,8 +23,10 @@ export default function LoginForm({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const redirectUrl = location.state?.redirectUrl;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ export default function LoginForm({
         description: response.message?.toString() || "Logged in Successfully.",
       });
       navigate("/", { replace: true });
+      // navigate(redirectUrl ?? "/", { replace: true });
     },
     onError: () => {
       toast({
@@ -96,7 +99,12 @@ export default function LoginForm({
                   >
                     {isPending ? "Logging in..." : "Login"}
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                    onClick={() => console.log("oauth is pending")}
+                  >
                     Login with Google
                   </Button>
                 </div>

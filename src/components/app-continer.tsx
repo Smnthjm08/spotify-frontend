@@ -1,20 +1,32 @@
-import useAuth from "@/hooks/use-auth";
 import { Navigate, Outlet } from "react-router-dom";
+import NavBar from "./nav-bar";
+import useAuth from "@/hooks/use-auth";
 
-const AppContainer = () => { 
+const AppContainer = () => {
   const { user, isLoading } = useAuth();
 
   return (
-    <div>
+    <div className="min-h-screen">
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="flex items-center justify-center min-h-screen">
+          Loading...
+        </div>
       ) : user ? (
-        <Outlet /> // Renders child routes
+        <div className="flex flex-col min-h-screen">
+          <div className="flex justify-end">
+            <NavBar user={user} />
+          </div>
+          <main className="flex-1 pt-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <Outlet />
+            </div>
+          </main>
+        </div>
       ) : (
-        <Navigate 
-          replace 
-          to="/login" 
-          state={{ redirectUrl: window.location.pathname }} 
+        <Navigate
+          replace
+          to="/login"
+          state={{ redirectUrl: window.location.pathname }}
         />
       )}
     </div>
