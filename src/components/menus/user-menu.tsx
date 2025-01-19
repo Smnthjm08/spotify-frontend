@@ -1,11 +1,8 @@
 import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -27,7 +24,7 @@ export function UserMenu({ user }: { user: User }) {
     },
     onSuccess: (response) => {
       toast({
-        title: "Logut Successful!",
+        title: "Logout Successful!",
         description:
           response?.message?.toString() || "User Logged out Successfully.",
       });
@@ -43,43 +40,46 @@ export function UserMenu({ user }: { user: User }) {
 
   console.log("UserMenu user:", user);
 
-
   const handleLogout = () => {
     console.log("logout");
     mutate();
   };
 
   return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger asChild>
-          <Avatar>
-            <AvatarImage src="https://gdithub.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>{user.email.slice(0, 2) || "N/A"}</AvatarFallback>
-          </Avatar>
-        </MenubarTrigger>
-        <MenubarContent>
-          <MenubarSeparator />
-          <MenubarItem inset>Account</MenubarItem>
-          <MenubarSeparator />
-          <Link to="/profile">
-            <MenubarItem inset>Profile</MenubarItem>
-          </Link>
-          <MenubarSeparator />
-          <MenubarItem inset>Private Sessions</MenubarItem>
-          <MenubarSeparator />
-          <Link to="/settings">
-            <MenubarItem inset>Settings</MenubarItem>
-          </Link>
-          <MenubarSeparator />
-          <MenubarItem inset onClick={() => handleLogout()}>
-            <span className="text-red-500 flex items-center gap-3">
-              <LogOut width={16} height={16} />
-              Logout
-            </span>
-          </MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Avatar className="cursor-pointer">
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>{user.email.slice(0, 2) || "N/A"}</AvatarFallback>
+        </Avatar>
+      </PopoverTrigger>
+      <PopoverContent className="w-56 p-0" align="end" alignOffset={-5}>
+        <div className="py-2 px-2 hover:bg-grey-700 cursor-pointer border-b">
+          Account
+        </div>
+        <Link
+          to="/profile"
+          className="block py-2 px-2 hover:bg-grey-700 border-b"
+        >
+          Profile
+        </Link>
+        <div className="py-2 px-2 hover:bg-grey-700 cursor-pointer border-b">
+          Private Sessions
+        </div>
+        <Link
+          to="/settings"
+          className="block py-2 px-2 hover:bg-grey-700 border-b"
+        >
+          Settings
+        </Link>
+        <div
+          className="py-2 px-2 hover:bg-grey-900 cursor-pointer text-red-500 flex items-center gap-3"
+          onClick={() => handleLogout()}
+        >
+          <LogOut width={16} height={16} />
+          Logout
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }

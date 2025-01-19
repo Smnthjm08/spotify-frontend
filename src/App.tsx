@@ -5,11 +5,12 @@ import RegisterPage from "./app/auth/register-page";
 import ForgotPasswordPage from "./app/auth/forgot-password";
 import VerifyEmailPage from "./app/auth/verify-email";
 import ResetPasswordPage from "./app/auth/reset-password";
-import AppContainer from "./components/app-continer";
 import Profile from "./app/user/profile-page";
 import SettingsPage from "./app/user/settings-page";
 import SessionsPage from "./app/user/sessions-page";
 import { setNavigate } from "./lib/navigation";
+import MainLayout from "./components/layouts/main-layout";
+import ChatPage from "./components/chat-page";
 
 function App() {
   const navigate = useNavigate();
@@ -23,8 +24,9 @@ function App() {
       <Route path="reset-password" element={<ResetPasswordPage />} />
       <Route path="forgot-password" element={<ForgotPasswordPage />} />
 
-      <Route path="/" element={<AppContainer />}>
+      <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="chat" element={<ChatPage />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings">
           <Route index element={<SettingsPage />} />
