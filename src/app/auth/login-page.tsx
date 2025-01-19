@@ -26,7 +26,7 @@ export default function LoginForm({
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const redirectUrl = location.state?.redirectUrl;
+  const redirectUrl = location.state?.redirectUrl || "/";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,11 +36,12 @@ export default function LoginForm({
   const { mutate: signIn, isPending } = useMutation({
     mutationFn: loginRequest,
     onSuccess: (response) => {
+      console.log(response);
+      navigate(redirectUrl, { replace: true });
       toast({
         title: "Success!",
         description: response.message?.toString() || "Logged in Successfully.",
       });
-      navigate("/", { replace: true });
       // navigate(redirectUrl ?? "/", { replace: true });
     },
     onError: () => {

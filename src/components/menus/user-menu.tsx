@@ -13,9 +13,9 @@ import { logoutRequest } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import queryClient from "@/config/query-client";
 import { LogOut } from "lucide-react";
-import authUser from "@/types/types";
+import { User } from "@/types/types";
 
-export function UserMenu({ user }: { user: authUser }) {
+export function UserMenu({ user }: { user: User }) {
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -41,6 +41,9 @@ export function UserMenu({ user }: { user: authUser }) {
     },
   });
 
+  console.log("UserMenu user:", user);
+
+
   const handleLogout = () => {
     console.log("logout");
     mutate();
@@ -52,7 +55,7 @@ export function UserMenu({ user }: { user: authUser }) {
         <MenubarTrigger asChild>
           <Avatar>
             <AvatarImage src="https://gdithub.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>{user.email.slice(0, 2)}</AvatarFallback>
+            <AvatarFallback>{user.email.slice(0, 2) || "N/A"}</AvatarFallback>
           </Avatar>
         </MenubarTrigger>
         <MenubarContent>

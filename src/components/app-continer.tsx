@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import NavBar from "./nav-bar";
+import NavBar from "./global/nav-bar";
 import useAuth from "@/hooks/use-auth";
 
 const AppContainer = () => {
@@ -13,9 +13,7 @@ const AppContainer = () => {
         </div>
       ) : user ? (
         <div className="flex flex-col min-h-screen">
-          <div className="flex justify-end">
-            <NavBar user={user} />
-          </div>
+          <NavBar user={user} />
           <main className="flex-1 pt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <Outlet />

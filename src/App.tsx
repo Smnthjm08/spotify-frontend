@@ -1,10 +1,10 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./components/home";
-import LoginPage from "./app/(auth)/login-page";
-import RegisterPage from "./app/(auth)/register-page";
-import ForgotPasswordPage from "./app/(auth)/forgot-password";
-import VerifyEmailPage from "./app/(auth)/verify-email";
-import ResetPasswordPage from "./app/(auth)/reset-password";
+import LoginPage from "./app/auth/login-page";
+import RegisterPage from "./app/auth/register-page";
+import ForgotPasswordPage from "./app/auth/forgot-password";
+import VerifyEmailPage from "./app/auth/verify-email";
+import ResetPasswordPage from "./app/auth/reset-password";
 import AppContainer from "./components/app-continer";
 import Profile from "./app/user/profile-page";
 import SettingsPage from "./app/user/settings-page";

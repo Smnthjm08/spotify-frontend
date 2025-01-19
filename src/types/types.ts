@@ -1,4 +1,4 @@
-type authUser = {
+export interface User {
   email: string;
   _id: string;
   username: string;
@@ -7,4 +7,3 @@ type authUser = {
   updatedAt: Date;
 };
 
-export default authUser;

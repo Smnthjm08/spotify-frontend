@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { deleteSessionRequest } from "@/lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SESSIONS } from "./use-sessions";

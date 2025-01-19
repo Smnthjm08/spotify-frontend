@@ -60,7 +60,7 @@ export const resetPasswordRequest = async (data: resetPasswordTypes) => {
 
 // GET user
 export const getUserRequest = async () => {
-  const response = await API.get("/user");
+  const response = await API.get("/user/my-profile");
   return response.data;
 };
 
