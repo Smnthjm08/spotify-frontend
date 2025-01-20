@@ -1,4 +1,4 @@
-const PlaylistSkeleton = () => {
+export default function PlaylistSkeleton() {
   return Array.from({ length: 7 }).map((_, i) => (
     <div key={i} className="p-2 rounded-md flex items-center gap-3">
       <div className="w-12 h-12 bg-zinc-800 rounded-md flex-shrink-0 animate-pulse" />
@@ -8,5 +8,4 @@ const PlaylistSkeleton = () => {
       </div>
     </div>
   ));
-};
-export default PlaylistSkeleton;
+}

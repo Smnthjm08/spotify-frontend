@@ -5,9 +5,12 @@ import { buttonVariants } from "../ui/button";
 import useAuth from "@/hooks/use-auth";
 import { ScrollArea } from "../ui/scroll-area";
 import PlaylistSkeleton from "../skeletons/playlist-skeleton";
+import useAlbums from "@/hooks/use-albums";
 
 export default function LeftSideBar() {
   const { user, isLoading } = useAuth();
+  const { albums } = useAlbums();
+  console.log("sal", albums)
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -56,7 +59,31 @@ export default function LeftSideBar() {
         </div>
         <ScrollArea className="h-[calc(100vh-300px)]">
           <div className="space-y-2 ">
-            {isLoading ? <PlaylistSkeleton /> : <div>helelel</div>}
+            {isLoading ? (
+              <PlaylistSkeleton />
+            ) : (
+              albums.map((album) => {
+                return (
+                  <Link
+                    to={`/albums/${album._id}`}
+                    key={album._id}
+                    className="p-2 hover:bg-zinc-800 rounded-md flex items-center gap-3 group cursor-pointer"
+                  >
+                    <img
+                      src={album.imageUrl}
+                      alt="playlist-image"
+                      className="size-12 rounded-md flex-shrink-0 object-cover"
+                    />
+                    <div className="flex-1 min-w-0 hidden md:block ">
+                      <p className="font-medium truncate"> {album.title}</p>
+                      <p className="text-sm text-zinc-400 truncate">
+                        Album {album.title}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })
+            )}
           </div>
         </ScrollArea>
       </div>

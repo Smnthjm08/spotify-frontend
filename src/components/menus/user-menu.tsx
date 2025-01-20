@@ -38,8 +38,6 @@ export function UserMenu({ user }: { user: User }) {
     },
   });
 
-  console.log("UserMenu user:", user);
-
   const handleLogout = () => {
     console.log("logout");
     mutate();
@@ -49,7 +47,7 @@ export function UserMenu({ user }: { user: User }) {
     <Popover>
       <PopoverTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarImage src="https://github.com/smnthjm08.png" alt="@shadcn" />
           <AvatarFallback>{user.email.slice(0, 2) || "N/A"}</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
