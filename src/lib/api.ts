@@ -80,3 +80,21 @@ export const getAlbumsRequest = async () => {
   console.log(">>>", response.data)
   return response.data;
 };
+
+//GET album by id 
+export const getAlbumByIdRequest = async (id: string) => {
+  const response = await API.get(`/album/${id}`);
+  return response.data;
+}
+
+//GET songs
+export const getSongsRequest = async () => {
+  const response = await API.get("/songs");
+  return response.data;
+};
+
+//GET all users
+export const getUsersRequest = async () => {
+  const response = await API.get("/user");
+  return response.data;
+};

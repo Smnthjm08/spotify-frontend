@@ -10,7 +10,6 @@ import useAlbums from "@/hooks/use-albums";
 export default function LeftSideBar() {
   const { user, isLoading } = useAuth();
   const { albums } = useAlbums();
-  console.log("sal", albums)
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -65,7 +64,7 @@ export default function LeftSideBar() {
               albums.map((album) => {
                 return (
                   <Link
-                    to={`/albums/${album._id}`}
+                    to={`/album/${album._id}`}
                     key={album._id}
                     className="p-2 hover:bg-zinc-800 rounded-md flex items-center gap-3 group cursor-pointer"
                   >

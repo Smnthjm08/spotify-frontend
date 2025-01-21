@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
 import useAuth from "@/hooks/use-auth";
-import TopBar from "../global/top-bar";
 import LeftSideBar from "./left-sidebar";
+import FriendsActivity from "./friends-activity";
+// import TopBar from "../global/top-bar";
 
 const MainLayout = () => {
   const { user, isLoading } = useAuth();
@@ -24,7 +25,7 @@ const MainLayout = () => {
         <ResizableHandle className="w-2 bg-black rounded-lg transition-colors" />
 
         <ResizablePanel defaultSize={isMobile ? 80 : 60}>
-          <TopBar user={user} />
+          {/* <TopBar user={user} /> */}
           {isLoading ? (
             "Loading..."
           ) : user ? (
@@ -45,7 +46,7 @@ const MainLayout = () => {
           maxSize={25}
           collapsedSize={0}
         >
-          right sidebar
+          <FriendsActivity />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

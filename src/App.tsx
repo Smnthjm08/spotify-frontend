@@ -28,7 +28,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="chat" element={<ChatPage />} />
-        <Route path="albums/:id" element={<AlbumPage />} />
+        <Route path="album/:id" element={<AlbumPage />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings">
           <Route index element={<SettingsPage />} />
