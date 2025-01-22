@@ -7,14 +7,16 @@ import { cn } from "@/lib/utils";
 
 export default function TopBar({ user }: { user: User }) {
   const isAdmin = true;
+
   return (
     <nav
-      className="max-h-16 flex items-center justify-between p-4 pl-6 pr-6 sticky top-0 bg-zinc-900/75 
+      className="max-h-16 flex items-center rounded-md justify-between p-4 pl-6 pr-6 sticky top-0 bg-zinc-900/75 
       backdrop-blur-lg z-10
     "
     >
       <Link to="/">
         <div className="flex gap-2 items-center">
+          {/* <img src="/spotify.png" className="size-8" alt="Spotify logo" /> */}
           <img src="/logos.svg" className="size-8" alt="Spotify logo" />
           <span className="font-bold text-xl">Spotify</span>
         </div>

@@ -36,7 +36,6 @@ export default function LoginForm({
   const { mutate: signIn, isPending } = useMutation({
     mutationFn: loginRequest,
     onSuccess: (response) => {
-      console.log(response);
       navigate(redirectUrl, { replace: true });
       toast({
         title: "Success!",

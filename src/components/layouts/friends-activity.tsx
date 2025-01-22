@@ -13,7 +13,6 @@ export default function FriendsActivity() {
     queryFn: getUsersRequest,
     queryKey: ["users"],
   });
-  console.log("data", data);
 
   const isPLaying = true;
 

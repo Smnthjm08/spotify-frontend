@@ -45,6 +45,7 @@ const MainLayout = () => {
           minSize={0}
           maxSize={25}
           collapsedSize={0}
+          collapsible={true}
         >
           <FriendsActivity />
         </ResizablePanel>

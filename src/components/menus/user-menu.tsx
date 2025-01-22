@@ -10,7 +10,7 @@ import { logoutRequest } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import queryClient from "@/config/query-client";
 import { LogOut } from "lucide-react";
-import { User } from "@/types/types";
+import type { User } from "@/types/types";
 
 export function UserMenu({ user }: { user: User }) {
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ export function UserMenu({ user }: { user: User }) {
   });
 
   const handleLogout = () => {
-    console.log("logout");
     mutate();
   };
 

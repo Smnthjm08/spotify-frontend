@@ -65,6 +65,8 @@ export const getUserRequest = async () => {
 // GET sessions
 export const getSessionsRequest = async () => {
   const response = await API.get("/sessions");
+  const run = await getFeaturedSongsRequest();
+  console.log(">>>", run)
   return response.data;
 };
 
@@ -98,3 +100,22 @@ export const getUsersRequest = async () => {
   const response = await API.get("/user");
   return response.data;
 };
+
+//GET featured songs
+export const getFeaturedSongsRequest = async () =>{
+  const response = await API.get("songs/featured");
+  console.log(">>>", response.data)
+  return response.data;
+}
+
+//GET made for you songs
+export const getMadeForYouSongsRequest = async () =>{
+  const response = await API.get("/songs/made-for-you");
+  return response.data;
+}
+
+//GET trending songs
+export const getTrendingSongsRequest = async () =>{
+  const response = await API.get("/songs/trending");
+  return response.data;
+}

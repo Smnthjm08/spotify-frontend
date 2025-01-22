@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import NavBar from "./global/top-bar";
+import NavBar from "../global/top-bar";
 import useAuth from "@/hooks/use-auth";
 
 const AppContainer = () => {
